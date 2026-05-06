@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTEA — E-learning that works.</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Darker+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --indigo: #1a0088;
+    --indigo-light: #2d00e0;
+    --orange: #FF5E32;
+    --ceramic: #EFE7D4;
+    --ceramic-dark: #e0d4be;
+    --neon: #5DFCF5;
+    --green: #97E667;
+    --white: #ffffff;
+    --text: #111111;
+    --text-muted: #555555;
+    --border: rgba(26,0,136,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 22px;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo img { height: 28px; width: auto; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--indigo); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-orange { background: var(--orange); color: white; }
+  .btn-orange:hover { background: #e04d24; transform: translateY(-1px); }
+
+  .btn-indigo { background: var(--indigo); color: white; }
+  .btn-indigo:hover { background: var(--indigo-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--indigo);
+    border: 2px solid var(--indigo);
+  }
+  .btn-outline:hover { background: var(--indigo); color: white; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 5% 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    background: var(--ceramic);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .hero-bg-dots {
+    position: absolute;
+    top: 80px; right: 6%;
+    width: 340px;
+    height: 340px;
+    background-image: radial-gradient(circle, var(--indigo) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    opacity: 0.08;
+    z-index: 1;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 5.5vw, 76px);
+    color: var(--indigo);
+    margin-bottom: 24px;
+    line-height: 1.05;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero p {
+    font-size: 24px;
+    line-height: 1.65;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin-bottom: 40px;
+  }
+
+  .hero-btns .btn {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--indigo);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(26,0,136,0.06);
+    transition: transform 0.3s;
+  }
+
+  .hero-card:hover { transform: translateY(-4px); }
+
+  .hero-card-tag {
+    display: inline-block;
+    background: var(--indigo);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .hero-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--indigo);
+    margin-bottom: 6px;
+  }
+
+  .hero-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .hero-card-orange { border-left: 4px solid var(--orange); }
+  .hero-card-neon { border-left: 4px solid var(--neon); }
+  .hero-card-green { border-left: 4px solid var(--green); }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--indigo);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 32px;
+  }
+
+  .ticker-dot {
+    width: 6px; height: 6px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 5%; }
+
+  .section-header {
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: clamp(36px, 4vw, 52px);
+    color: var(--indigo);
+    margin-top: 12px;
+    max-width: 700px;
+  }
+
+  /* ABOUT */
+  .about { background: var(--white); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 23px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .about-text .btn { margin-top: 12px; }
+
+  .about-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .value-card {
+    background: var(--ceramic);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: transform 0.2s;
+  }
+
+  .value-card:hover { transform: translateY(-4px); }
+
+  .value-icon {
+    width: 44px; height: 44px;
+    background: var(--indigo);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+
+  .value-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 8px;
+  }
+
+  .value-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  /* SERVICES */
+  .services { background: var(--ceramic); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 16px;
+    padding: 36px 28px;
+    border: 1px solid var(--border);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--orange);
+    transform: scaleY(0);
+    transition: transform 0.25s;
+    transform-origin: bottom;
+  }
+
+  .service-card:hover::before { transform: scaleY(1); }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(26,0,136,0.1); }
+
+  .service-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+    color: var(--indigo);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  /* WORK */
+  .work { background: var(--white); }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .filter-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--indigo);
+    color: white;
+    border-color: var(--indigo);
+  }
+
+  /* AUREVIX-STYLE LIST */
+  .work-list { width: 100%; }
+
+  .case-row {
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .case-row:last-child { border-bottom: 1px solid var(--border); }
+  .case-row.hidden { display: none; }
+
+  .case-row-header {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 0;
+    transition: all 0.2s;
+  }
+
+  .case-row:hover .case-row-header { padding-left: 16px; }
+
+  .case-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .case-row-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--indigo);
+    line-height: 1.2;
+    transition: color 0.2s;
+  }
+
+  .case-row:hover .case-row-title { color: var(--orange); }
+
+  .case-tag {
+    display: inline-block;
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .case-row:hover .case-tag {
+    background: var(--indigo);
+    color: white;
+    border-color: var(--indigo);
+  }
+
+  .case-row-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    transition: transform 0.3s, color 0.2s;
+    width: 32px;
+    text-align: right;
+  }
+
+  .case-row.open .case-row-arrow { transform: rotate(45deg); color: var(--orange); }
+
+  .case-expand {
+    display: none;
+    padding: 0 0 40px 112px;
+  }
+
+  .case-expand.open { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+
+  .case-expand-section h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  .case-expand-section p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .case-client-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+
+  /* MIDAS */
+  .midas { background: var(--ceramic); }
+
+  .midas-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .midas-text p {
+    font-size: 23px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .midas-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .midas-pill {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 18px 24px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s;
+  }
+
+  .midas-pill:hover { transform: translateX(8px); }
+
+  .midas-letter {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--indigo);
+    min-width: 36px;
+  }
+
+  .midas-pill-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 2px;
+  }
+
+  .midas-pill-text p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .midas-accent { color: var(--orange); }
+
+  /* TECH */
+  .tech { background: var(--white); }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .tech-col h3 {
+    font-size: 18px;
+    color: var(--indigo);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--orange);
+    display: inline-block;
+  }
+
+  .tech-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tech-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .tech-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .docebo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .standards-bar {
+    background: var(--ceramic);
+    border-radius: 20px;
+    padding: 36px 48px;
+    display: flex;
+    gap: 48px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .standard-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .standard-icon {
+    width: 48px; height: 48px;
+    background: var(--indigo);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .standard-item h4 {
+    font-size: 15px;
+    color: var(--indigo);
+    margin-bottom: 2px;
+  }
+
+  .standard-item p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--indigo); padding: 100px 5%; }
+
+  .testimonials .label { color: var(--orange); }
+
+  .testimonials .section-header h2 { color: white; }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testi-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 36px 32px;
+    transition: background 0.25s;
+  }
+
+  .testi-card:hover { background: rgba(255,255,255,0.12); }
+
+  .testi-quote {
+    font-size: 36px;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 16px;
+    font-family: Georgia, serif;
+  }
+
+  .testi-text {
+    font-size: 21px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .testi-author {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ceramic);
+    letter-spacing: 0.04em;
+  }
+
+  /* CTA */
+  .cta-band {
+    background: var(--ceramic);
+    padding: 100px 5%;
+    text-align: center;
+  }
+
+  .cta-band h2 {
+    font-size: clamp(36px, 4.5vw, 56px);
+    color: var(--indigo);
+    margin-bottom: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-band p {
+    font-size: 24px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-band .btn { font-size: 16px; padding: 16px 36px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--indigo);
+    padding: 64px 5% 40px;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    margin-bottom: 32px;
+  }
+
+  .footer-logo img { height: 28px; width: auto; }
+
+  .footer-tagline {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+    max-width: 240px;
+    line-height: 1.5;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 60px;
+  }
+
+  .footer-col h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-col a {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: white; }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .footer-email {
+    font-size: 15px;
+    color: var(--ceramic);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .footer-email:hover { color: var(--orange); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 120px; }
+    .hero-visual { display: none; }
+    .about-grid, .midas-inner { grid-template-columns: 1fr; gap: 48px; }
+    .services-grid, .testi-grid, .tech-grid { grid-template-columns: repeat(2, 1fr); }
+    .case-expand.open { grid-template-columns: 1fr; gap: 20px; }
+    .case-expand { padding-left: 0; }
+    .case-row-header { grid-template-columns: 48px 1fr auto; gap: 16px; }
+    .case-tag { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .services-grid, .testi-grid, .tech-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 20px; }
+    .footer-top { flex-direction: column; gap: 40px; }
+    .footer-links { flex-direction: column; gap: 32px; }
+    .standards-bar { flex-direction: column; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzY2IDU0MiI+PGRlZnM+PHN0eWxlPi5ie2ZpbGw6IzFhMDA4ODt9PC9zdHlsZT48L2RlZnM+PHBvbHlnb24gY2xhc3M9ImIiIHBvaW50cz0iNTg2LjYzNyAxMjIuMjU0IDUxNC43MzYgMTIyLjI1NCA1MTQuNzM2IDE5NC4xNTUgNDc5LjIxNyAxOTQuMTU1IDQ3OS4yMTcgMjQ4LjczMSA1MTQuNzM2IDI0OC43MzEgNTE0LjczNiA0NDIuNzggNTg2LjYzNyA0NDIuNzggNTg2LjYzNyAyNDguNzMxIDYyMS4yODggMjQ4LjczMSA2MjEuMjg4IDE5NC4xNTUgNTg2LjYzNyAxOTQuMTU1IDU4Ni42MzcgMTIyLjI1NCIvPjxwYXRoIGNsYXNzPSJiIiBkPSJNNzU1LjQ0MywxOTQuMTU1Yy02OC4zNCwwLTEyMi4wMDYsNTcuODYtMTIyLjAwNiwxMjQuOTQyLDAsNjkuMTc5LDU2LjE4MSwxMjMuMjY0LDEyMy4yNjQsMTIzLjI2NCw0OS4wNTUsMCw5MC4yODctMjYuNDYxLDExMi41MDctNzcuMTkxaC03MS4yNzVjLTExLjMyLDE0LjY3NC0yMi4zNjUsMTguNDkyLTQxLjIzMywxOC40OTItMjguNTEsMC01MC43MzItMTcuNjA3LTU0LjUwNS00NC4wMjJoMTc0LjQxNWMxLjI1OS02LjI5LDEuNjc5LTExLjczOCwxLjY3OS0xOC40NDYsMC03Mi4xMTUtNTMuMjQ4LTEyNy4wMzktMTIyLjg0Ni0xMjcuMDM5Wk03MDMuMDM0LDI5Mi42ODNjNS40NTEtMjQuNzM2LDI3LjI1My0zOS44MzIsNTIuNDA5LTM5LjgzMiwyNi44MzMsMCw0Ny43OTYsMTUuOTM1LDUzLjI0NywzOS44MzJoLTEwNS42NTVaIi8+PHBhdGggY2xhc3M9ImIiIGQ9Ik0xMDkxLjg5NywyMjYuODU3aC0uODM5Yy0xMy40MTctMjEuMzgyLTM5LjgzLTMyLjcwMi02OC4zNC0zMi43MDItNjYuNjYzLDAtMTE2LjU1Niw1NS4zNDItMTE2LjU1NiwxMjQuMTAzLDAsNzAuNDM3LDQ3Ljc5NiwxMjQuNTIxLDExNi41NTYsMTI0LjUyMSwzMC42MDcsMCw1OC4yNzgtMTIuNTc3LDY4LjM0LTMzLjEyaC44Mzl2MzIuNDk3aDY5LjU5OHYtMjQ4LjAwMWgtNjkuNTk4djMyLjcwMlpNMTAzMy42MiwzNzcuNzk0Yy0zMi4yODQsMC01Ny44Ni0yNi40MTItNTcuODYtNTguNjk2LDAtMzMuNTQxLDI1LjE1Ni01OS45NTYsNTcuMDItNTkuOTU2LDMyLjcwMiwwLDU5LjExNywyNi40MTUsNTkuMTE3LDU5LjExNywwLDMzLjU0MS0yNS41NzYsNTkuNTM1LTU4LjI3OCw1OS41MzVaIi8+PHBhdGggY2xhc3M9ImIiIGQ9Ik00MDguNjUzLDIwNS40OTljLTE1LjQwNi04LjEyOC00Mi40MTItMTEuMTYzLTYzLjI1NS0xMS4zMjd2LS4wMTZjLS4yOTYsMC0uNjA4LjAwNy0uOTA3LjAwOC0uMjk5LS4wMDEtLjYxMS0uMDA4LS45MDctLjAwOHYuMDE2Yy0yMC44NDMuMTY1LTQ3Ljg0OSwzLjE5OS02My4yNTYsMTEuMzI3LTE0LjI5MSw3LjU1My0yNS44NTEsMTguODY1LTM0LjM1OCwzMy42MjQtOC40OTIsMTQuNzQ5LTEyLjc5NywzMy4zODgtMTIuNzk3LDU1LjM5OHYxNDguMjU4aDY3LjQ0M3YtMTI3Ljg2MWMwLTEzLjMwMSwxLjc5NS0yNC41ODIsNS4zMzUtMzMuNTI0LDMuNDk0LTguODA0LDguNjMxLTE1LjU2NCwxNS4yNjctMjAuMDkyLDYuNDIyLTQuMzc2LDE0LjI1Ni02LjY0NSwyMy4yNzMtNi43OSw5LjAxOC4xNDUsMTYuODUyLDIuNDE0LDIzLjI3Myw2Ljc5LDYuNjM2LDQuNTI4LDExLjc3MywxMS4yODksMTUuMjY3LDIwLjA5MSwzLjU0LDguOTQ0LDUuMzM1LDIwLjIyNCw1LjMzNSwzMy41MjV2MTI3Ljg2MWg2Ny40NDN2LTE0OC4yNThjMC0yMi4wMS00LjMwNi00MC42NDktMTIuNzk4LTU1LjM5OS04LjUwNi0xNC43NTgtMjAuMDY2LTI2LjA3MS0zNC4zNTgtMzMuNjIzWiIvPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMjI4LjU2NSIgY3k9IjQwMy45NzUiIHI9IjM4LjgwNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ4Ljg0NiAyMDIuMDExKSByb3RhdGUoLTkuMjE3KSIvPjxwYXRoIGNsYXNzPSJiIiBkPSJNMTI3LjUsMTk0LjYwMnYyNDguMTc3aDcxLjkwM3YtMjQ4LjE3OGMtMTAuNCw2LjYzMi0yMi43MywxMC40OTQtMzUuOTUyLDEwLjQ5NHMtMjUuNTUxLTMuODYyLTM1Ljk1MS0xMC40OTNaIi8+PGNpcmNsZSBjbGFzcz0iYiIgY3g9IjE2My40NTEiIGN5PSIxMzguMDI1IiByPSIzOC44MDQiLz48L3N2Zz4=" alt="INTEA">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#work">Our Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#midas">How We Work</a></li>
+    <li><a href="#tech">Tech Stack</a></li>
+    <li><a href="#contact" class="btn btn-orange">Get in touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-dots"></div>
+  <div class="hero-content fade-up">
+    <h1>E-learning<br>that <span>works.</span></h1>
+    <p>We design and build digital learning experiences for organisations that need results, not just completion rates.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn btn-indigo">See our work →</a>
+      <a href="#contact" class="btn btn-outline">Contact us</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">17+</span>
+        <span class="stat-label">Years experience</span>
+      </div>
+      <div>
+        <span class="stat-num">6</span>
+        <span class="stat-label">Industries</span>
+      </div>
+      <div>
+        <span class="stat-num">3</span>
+        <span class="stat-label">Continents</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual fade-up">
+    <div class="hero-card hero-card-orange">
+      <div class="hero-card-tag">Finance</div>
+      <h4>Swedbank Investment School</h4>
+      <p>Turning hesitation into confident investors, at scale.</p>
+    </div>
+    <div class="hero-card hero-card-neon">
+      <div class="hero-card-tag">Risk Management</div>
+      <h4>Cyber Incident Response</h4>
+      <p>When a cyber attack lands, every decision counts.</p>
+    </div>
+    <div class="hero-card hero-card-green">
+      <div class="hero-card-tag">State Projects</div>
+      <h4>Anti-Corruption Game</h4>
+      <p>Teaching integrity through a game teenagers actually want to play.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Finance</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Maritime</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>State Projects</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Risk Management</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Telecommunications</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Healthcare</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Manufacturing</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Retail & Logistics</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>IT & Technology</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Finance</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Maritime</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>State Projects</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Risk Management</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Telecommunications</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Healthcare</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Manufacturing</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Retail & Logistics</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>IT & Technology</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p class="label">About us</p>
+      <h2 style="margin-top:12px; margin-bottom:24px; font-size:clamp(32px,3.5vw,46px); color:var(--indigo);">A leading e-learning provider in the Baltic region.</h2>
+      <p>INTEA specialises in creating engaging, effective, and scalable learning experiences that help organisations streamline onboarding, boost employee performance, and ensure compliance readiness.</p>
+      <p>With over 17 years of experience and clients across three continents, we combine instructional design expertise with deep technical capability to deliver learning that sticks.</p>
+      <a href="#contact" class="btn btn-indigo" style="margin-top:24px;">Work with us →</a>
+    </div>
+    <div class="about-values fade-up">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h4>Learner-Centred</h4>
+        <p>Every solution is designed around the learner, not the brief.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h4>Collaborative</h4>
+        <p>We work closely with your teams and subject matter experts.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">✓</div>
+        <h4>Reliable</h4>
+        <p>Consistent delivery with accountability and care on every project.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⭐</div>
+        <h4>Quality-Driven</h4>
+        <p>High standards in design, technology, and execution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header fade-up">
+    <p class="label">What we do</p>
+    <h2>End-to-end e-learning capability.</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">01</div>
+      <h3>Custom E-learning Development</h3>
+      <p>Bespoke digital learning experiences built around your goals, your audience, and your brand — from concept to deployment.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">02</div>
+      <h3>LMS Selection & Implementation</h3>
+      <p>End-to-end support in selecting, configuring, and launching the right learning platform. Official Docebo and CrossKnowledge partner.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">03</div>
+      <h3>Learning Strategy Consulting</h3>
+      <p>Expertise in formulating learning strategies, creating roadmaps, and building effective L&D processes that scale.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">04</div>
+      <h3>Localisation & Multi-language</h3>
+      <p>Adapting content for global audiences — including translation, cultural adaptation, and right-to-left language support.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">05</div>
+      <h3>Offshore L&D Teams</h3>
+      <p>Dedicated teams to enhance your capacity — covering LMS administration, rapid production, QA, and testing.</p>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">06</div>
+      <h3>Off-the-shelf Content</h3>
+      <p>Access to curated content from top international providers, selected to fit your organisational objectives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="section-header fade-up">
+    <p class="label">Our work</p>
+    <h2>What we've built.</h2>
+  </div>
+  <div class="filter-bar fade-up">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="finance">Finance</button>
+    <button class="filter-btn" data-filter="maritime">Maritime</button>
+    <button class="filter-btn" data-filter="state">State Projects</button>
+    <button class="filter-btn" data-filter="risk">Risk Management</button>
+    <button class="filter-btn" data-filter="telecoms">Telecoms</button>
+    <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+    <button class="filter-btn" data-filter="manufacturing">Manufacturing</button>
+    <button class="filter-btn" data-filter="retail">Retail & Logistics</button>
+    <button class="filter-btn" data-filter="it">IT</button>
+  </div>
+  <div class="work-list fade-up">
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">01</div>
+        <div>
+          <div class="case-client-label">Swedbank</div>
+          <div class="case-row-title">Investment School</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Distrust, complexity, and a lack of practical guidance were keeping a significant audience on the sidelines.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A modular, adaptive digital learning programme with 10 separate modules. Content adapts to each learner's existing knowledge level, with safe practice environments.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Learners complete the programme certification-ready and equipped to start investing responsibly.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">02</div>
+        <div>
+          <div class="case-client-label">Swedbank & Mastercard</div>
+          <div class="case-row-title">Sound Entrepreneurship</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Many entrepreneurs start with drive but without the foundational knowledge to manage money, plan strategically, or scale sustainably.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A modular digital learning journey with 11 separate modules using real-life tools, practical examples, and flexible interactivity.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Entrepreneurs complete with a stronger foundation for decision-making and practical tools they can apply immediately.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">03</div>
+        <div>
+          <div class="case-client-label">Baltic Financial Industry Association</div>
+          <div class="case-row-title">Ethics in Banking</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The client needed more than a compliance course — genuine ethical judgment across experienced teams in three Baltic markets.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A scenario-driven programme where every decision carries real weight. Scored 0–4, with a cumulative pass threshold. Localised into Latvian, Lithuanian, and Estonian.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees come away with practised ethical judgment. Completion means something.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">04</div>
+        <div>
+          <div class="case-client-label">Baltic Financial Industry Association</div>
+          <div class="case-row-title">How to Analyse New Markets</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Experienced financial analysts had grown disengaged from standard approaches to professional development.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A deliberate progression from motivation through storytelling to core content, case studies, simulators, and practical job aids. Localised for Latvia, Lithuania, and Estonia.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>The benchmark was ambitious: learners would choose this programme over any other available resource. Met.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">05</div>
+        <div>
+          <div class="case-client-label">Major Nordic Bank</div>
+          <div class="case-row-title">Climate Change Course</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Client-facing teams lacked the confidence and vocabulary to raise climate conversations proactively with clients.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>5 fully branded modules with custom animation, professional video, and the bank's complete brand language. Localised into 5 languages.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Client-facing employees can initiate climate risk conversations with authority and genuine confidence.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="finance" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">06</div>
+        <div>
+          <div class="case-client-label">Global Microfinance Organisation</div>
+          <div class="case-row-title">SME Banking Skills Programme</div>
+        </div>
+        <span class="case-tag">Finance</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Each module had previously required 10 days of classroom training and 3 weeks of on-site coaching. It had to work on a mobile phone during a lunch break.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A four-module microlearning programme, each unit sized for 15-minute sessions. Built from the ground up around practical case studies and scenario-based exercises.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>What previously required weeks of face-to-face delivery is now accessible anywhere, at any time.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="maritime" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">07</div>
+        <div>
+          <div class="case-client-label">Global Maritime Connectivity Provider</div>
+          <div class="case-row-title">IT Link</div>
+        </div>
+        <span class="case-tag">Maritime</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The gap between having a tool and knowing how to use it with confidence was costing productivity and accumulating errors.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A fully narrated Storyline course with locked navigation, AI-generated voiceover, optional subtitles, embedded web objects, and integrated PDF resources.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Every learner who completes the programme has genuinely worked through the content rather than bypassed it.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="maritime" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">08</div>
+        <div>
+          <div class="case-client-label">Global Maritime Connectivity Provider</div>
+          <div class="case-row-title">Lead to Order</div>
+        </div>
+        <span class="case-tag">Maritime</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>A global sales force needed to understand the complete lead-to-order process at a scope never attempted before, under a tight deadline.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A structured Rise programme built from SME workshops, with an introductory video, structured modules, case studies, interactive exercises, simulators, and job aids.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Sales teams complete with a clear understanding of the end-to-end process and the system logic needed for greater consistency.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="state" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">09</div>
+        <div>
+          <div class="case-client-label">Latvian State Enterprise</div>
+          <div class="case-row-title">Sustainable Development Goals</div>
+        </div>
+        <span class="case-tag">State Projects</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The challenge was to make a dense, policy-driven topic genuinely engaging for employees carrying a heavy load of required training.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A circular, map-based navigation with a fishing game, detective-style tasks, and self-check activities. Real human voiceover and local photography.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees engage with the SDGs as a framework they have actively explored rather than passively received.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="state" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">10</div>
+        <div>
+          <div class="case-client-label">National Ministry of Climate and Energy</div>
+          <div class="case-row-title">Climate Change Mitigation</div>
+        </div>
+        <span class="case-tag">State Projects</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Latvia's municipalities needed to understand climate change as relevant to their planning decisions — for an audience already stretched across daily responsibilities.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Four chapters each opening with an introductory video, mixing text, case studies, game elements, and high-interactivity simulations in roughly equal measure.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Municipal planners engage with climate change as something that unlocks real funding opportunities for their municipality.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="state" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">11</div>
+        <div>
+          <div class="case-client-label">National Anti-Corruption Authority</div>
+          <div class="case-row-title">Anti-Corruption Game</div>
+        </div>
+        <span class="case-tag">State Projects</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Anti-corruption education for young people: the moment it feels like a lesson, it loses. Reach every 7th, 8th, and 9th grade pupil in Latvia.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A full pixel art game experience with progress tracked on a map, a character guide, completion earned through points, and a mini-game reinforcing key concepts through play.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Latvian pupils engage with questions of fairness, trust, and corruption through direct experience.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="state" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">12</div>
+        <div>
+          <div class="case-client-label">Latvian State Enterprise</div>
+          <div class="case-row-title">Artificial Intelligence Literacy</div>
+        </div>
+        <span class="case-tag">State Projects</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Building foundational AI literacy — including EU and Latvian regulatory context and data protection — among employees with no prior baseline.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A comprehensive Storyline programme with an external AI subject matter expert, AI-generated video sequences, redrawn infographics, custom JavaScript interactions, and WCAG compliance.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees complete with a working understanding of what AI is, how it is regulated, and what data protection principles apply.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="risk" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">13</div>
+        <div>
+          <div class="case-client-label">Global Risk Management Organisation</div>
+          <div class="case-row-title">Cyber Incident Response</div>
+        </div>
+        <span class="case-tag">Risk Mgmt</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The organisation needed employees to respond correctly under real pressure — not simply recall a policy they had read once.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A fully gamified Storyline programme structured around levels. Choose correctly and advance; choose wrongly and the level replays. Two attempts per level.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees complete having actively practised responses to cyber scenarios. Completion carries genuine meaning.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="risk" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">14</div>
+        <div>
+          <div class="case-client-label">Global Risk Management Organisation</div>
+          <div class="case-row-title">Data Protection Awareness</div>
+        </div>
+        <span class="case-tag">Risk Mgmt</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Refreshing cybersecurity awareness across a workforce already familiar with the basics, without producing a course they had already clicked through and forgotten.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A comic-style narrative: a running conversation between an experienced employee and a new hire. Shock slides and fail simulations embedded throughout.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees refresh their data protection practices through an experience designed to stay memorable.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="risk" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">15</div>
+        <div>
+          <div class="case-client-label">Global Risk Management Organisation</div>
+          <div class="case-row-title">Cyber Threat Landscape</div>
+        </div>
+        <span class="case-tag">Risk Mgmt</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Making the threat landscape feel immediate and consequential — without a compelling format, motivation was close to zero.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>The organisation as a stronghold, four threat categories as four doors. An 8-bit pixel art visual style. Opens with an invented cyberattack scenario to make consequences tangible.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees engage with the threat landscape as something specific, plausible, and directly relevant to their organisation.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="risk" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">16</div>
+        <div>
+          <div class="case-client-label">Global Risk Management Organisation</div>
+          <div class="case-row-title">Contracting with Customers</div>
+        </div>
+        <span class="case-tag">Risk Mgmt</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The existing course was a wall of text. Employees who disengaged were not absorbing critical contracting compliance information.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Started with a content matrix workshop. Replaced passive structure entirely with case-study-driven learning. A custom illustrated learning agent and circular menu navigation.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees engage with the contracting process at a depth that translates into fewer legal complications.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="telecoms" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">17</div>
+        <div>
+          <div class="case-client-label">Major Baltic Telecoms Provider</div>
+          <div class="case-row-title">Drone Certification Programme</div>
+        </div>
+        <span class="case-tag">Telecoms</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Private drone users needed a structured digital learning pathway that would genuinely prepare them for the Civil Aviation Authority examination.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Five structured Rise courses with micro-tasks throughout. Animated visuals with highlighted technical elements. Final knowledge test releases answers only on completion.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Drone users complete the programme prepared to sit and pass the CAA certification exam.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="telecoms" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">18</div>
+        <div>
+          <div class="case-client-label">Major Baltic Telecoms Provider</div>
+          <div class="case-row-title">Customer Service Standards</div>
+        </div>
+        <span class="case-tag">Telecoms</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Real behavioural change was needed across three distinct sales departments — retail, call centre, and business client management.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Conversational simulation using BranchTrack. Learners earn points based on response quality. Weekly knowledge checks with a final BranchTrack simulation as culminating assessment.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Staff across three departments practise real service conversations, building confidence through repetition in context.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="telecoms" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">19</div>
+        <div>
+          <div class="case-client-label">Major Baltic Telecoms Provider</div>
+          <div class="case-row-title">Tiki-Taka Pay Product Training</div>
+        </div>
+        <span class="case-tag">Telecoms</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Client managers needed to understand the product, identify client needs, and handle objections — all translating into confident sales conversations.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Five stages in Rise: product understanding, system functionality, client need identification, implementation, and a BranchTrack sales simulation. Designed as a repeatable template.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Client managers equipped to position and sell with confidence. A reusable framework that reduces time and cost for future launches.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="healthcare" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">20</div>
+        <div>
+          <div class="case-client-label">Global Healthcare Organisation</div>
+          <div class="case-row-title">Drug Safety Basics</div>
+        </div>
+        <span class="case-tag">Healthcare</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>A mandatory course that employees approach as a compliance exercise does not build the mindset the organisation actually needs.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Reshaped from a narrated video to a structured 20-minute Storyline course with an embedded Vyond animated video. Storytelling, shock moments, and fail simulations.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Healthcare professionals complete with a genuine grounding in drug safety fundamentals. A professionally produced, localisation-ready global asset.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="healthcare" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">21</div>
+        <div>
+          <div class="case-client-label">Healthcare Client</div>
+          <div class="case-row-title">Computer System Validation</div>
+        </div>
+        <span class="case-tag">Healthcare</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Developed in Storyline with avatars to make content relatable. Interactive elements including hotspots, quizzes, and AI-generated voiceovers. A pre-test option for confident learners.</p></div>
+        
+      </div>
+    </div>
+    <div class="case-row" data-category="manufacturing" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">22</div>
+        <div>
+          <div class="case-client-label">Manufacturing Client</div>
+          <div class="case-row-title">Container Inspection Training</div>
+        </div>
+        <span class="case-tag">Manufacturing</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Developed in Storyline with a mix of real-life and stock photos to create a sense of reality. Quizzes and self-check exercises for learner reflection and knowledge retention.</p></div>
+        
+      </div>
+    </div>
+    <div class="case-row" data-category="retail" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">23</div>
+        <div>
+          <div class="case-client-label">National Postal Service</div>
+          <div class="case-row-title">Customer Service Standards</div>
+        </div>
+        <span class="case-tag">Retail</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>New employees were trained by local managers, producing varied standards. Audience: primarily women aged 50+, working at physical counters.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Real service situations drawn from the organisation's own satisfaction surveys. A well-known actor voices the learning agent. Locked navigation. Large lettering and high contrast.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>New employees across the network receive a consistent standard through a format that scales without dependence on individual managers.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="retail" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">24</div>
+        <div>
+          <div class="case-client-label">Global Print-on-Demand Platform</div>
+          <div class="case-row-title">Motivation and Delegation</div>
+        </div>
+        <span class="case-tag">Retail</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The first module in an eight-part management programme. Getting it right mattered beyond the module — it would set the template for everything that followed.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Built in Articulate Rise on Workday. A neutral design language scalable across all eight modules. Prototype validated before full production. Structured for future localisation into Spanish.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>The first module establishes the design and structural template for the full eight-module programme, reducing time and cost for every module that follows.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="retail" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">25</div>
+        <div>
+          <div class="case-client-label">Major Baltic Retailer</div>
+          <div class="case-row-title">Sales Floor Service Standards</div>
+        </div>
+        <span class="case-tag">Retail</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Three sales departments had developed their own habits with no shared standard. The business needed real behavioural change, not just awareness.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Built in BranchTrack — no passive slides, every moment is a decision. Points accumulate based on response quality. One rule throughout: no negative language, anywhere.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Staff across three departments practise real customer conversations, building confidence that comes only from repetition in context.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="it" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">26</div>
+        <div>
+          <div class="case-client-label">European Sovereign AI Company</div>
+          <div class="case-row-title">Enterprise AI Enablement</div>
+        </div>
+        <span class="case-tag">IT</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Partners, sales teams, and technical staff all needed to navigate the same product ecosystem from completely different starting points.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A learning architecture workshop before a single slide was written. A tiered, multi-track journey: universal Prologue, GenAI Basics for all, then Business, Technical, and Operations tracks. Built in Rise on Docebo.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Partners, sales, and technical staff equipped to understand, position, and deploy the AI product at whatever depth their role demands.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="it" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">27</div>
+        <div>
+          <div class="case-client-label">Global Insurance Group</div>
+          <div class="case-row-title">Welcome to the AI Jungle</div>
+        </div>
+        <span class="case-tag">IT</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Participation was voluntary. Completion could not be mandated. The programme had to earn its audience — average age 50, minimal AI experience, healthy scepticism.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>A jungle expedition — four chapters structured around exploration. Jungle animal characters in the client's own brand illustration style. A four-minute Vyond video opens the experience. No voiceover.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees engage with AI as something they are actively invited into. A course good enough that people choose to complete it.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="it" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">28</div>
+        <div>
+          <div class="case-client-label">Co-Produced Commercial Product</div>
+          <div class="case-row-title">Cyber Hygiene</div>
+        </div>
+        <span class="case-tag">IT</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>The challenge was designing something distinctive enough to compete commercially as a standalone product.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>Co-developed in a three-way commercial partnership. Nine cases across three chapters — passwords, phishing, device security. Localised into 5 languages across the full Baltic market footprint.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>A commercially available product that generates revenue independently of any single client engagement.</p></div>
+      </div>
+    </div>
+    <div class="case-row" data-category="it" onclick="toggleRow(this)">
+      <div class="case-row-header">
+        <div class="case-num">29</div>
+        <div>
+          <div class="case-client-label">Latvian State Enterprise</div>
+          <div class="case-row-title">AI Literacy Programme</div>
+        </div>
+        <span class="case-tag">IT</span>
+        <div class="case-row-arrow">+</div>
+      </div>
+      <div class="case-expand">
+        <div class="case-expand-section"><h5>The problem</h5><p>Building genuine AI literacy — EU regulatory landscape, Latvian-specific implementation, data protection — among employees with no established baseline.</p></div>
+        <div class="case-expand-section"><h5>INTEA solution</h5><p>An external AI subject matter expert engaged through INTEA's network. HeyGen AI-generated video sequences, redrawn infographics, real human voiceover, WCAG compliance, SCORM 1.2 delivery.</p></div>
+        <div class="case-expand-section"><h5>Outcome</h5><p>Employees complete with a working understanding of AI, EU regulation, and data protection obligations specific to their context.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MIDAS -->
+<section class="midas" id="midas">
+  <div class="midas-inner">
+    <div class="midas-text fade-up">
+      <p class="label">How we work</p>
+      <h2 style="font-size:clamp(32px,3.5vw,46px); color:var(--indigo); margin: 12px 0 24px;">The <span style="color:var(--orange);">MIDAS</span> framework.</h2>
+      <p>Every project we deliver is shaped by our own instructional design framework — built over 17 years to make training stick.</p>
+      <p>Most organisations are good at informing, developing, and assessing. The parts that get skipped — motivation and support — are the ones that make the difference. MIDAS keeps all five in play.</p>
+      <a href="#contact" class="btn btn-indigo" style="margin-top:8px;">Tell us about your project →</a>
+    </div>
+    <div class="midas-pills fade-up">
+      <div class="midas-pill">
+        <div class="midas-letter">M</div>
+        <div class="midas-pill-text">
+          <h4>Motivate</h4>
+          <p>Engage learners before the content even starts. Don't assume motivation.</p>
+        </div>
+      </div>
+      <div class="midas-pill">
+        <div class="midas-letter">I</div>
+        <div class="midas-pill-text">
+          <h4>Inform</h4>
+          <p>Deliver only what's relevant to the learning goal. No more, no less.</p>
+        </div>
+      </div>
+      <div class="midas-pill">
+        <div class="midas-letter">D</div>
+        <div class="midas-pill-text">
+          <h4>Develop</h4>
+          <p>Build real skills through practice, exercise, and applied tasks.</p>
+        </div>
+      </div>
+      <div class="midas-pill">
+        <div class="midas-letter">A</div>
+        <div class="midas-pill-text">
+          <h4>Assess</h4>
+          <p>Measure progress with meaningful, fair testing that respects the learner.</p>
+        </div>
+      </div>
+      <div class="midas-pill">
+        <div class="midas-letter">S</div>
+        <div class="midas-pill-text">
+          <h4>Support</h4>
+          <p>Reinforce knowledge long after the course ends. Sandwich your training.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech" id="tech">
+  <div class="section-header fade-up">
+    <p class="label">Tech stack</p>
+    <h2>We adapt to your tools.</h2>
+  </div>
+  <div class="tech-grid fade-up">
+    <div class="tech-col">
+      <h3>Authoring tools</h3>
+      <ul class="tech-list">
+        <li>Articulate Rise</li>
+        <li>Articulate Storyline</li>
+        <li>BranchTrack</li>
+        <li>Lectora</li>
+        <li>iSpring</li>
+        <li>Adobe Captivate</li>
+        <li>Camtasia</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <h3>Supporting technologies</h3>
+      <ul class="tech-list">
+        <li>Adobe Creative Suite</li>
+        <li>Figma</li>
+        <li>Vyond</li>
+        <li>Synthesia</li>
+        <li>Canva</li>
+        <li>HeyGen</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <h3>Learning platforms</h3>
+      <ul class="tech-list">
+        <li>Docebo <span class="docebo-badge">Official Partner</span></li>
+        <li>CrossKnowledge</li>
+        <li>Workday Learning</li>
+        <li>Moodle</li>
+        <li>Your existing LMS</li>
+      </ul>
+    </div>
+  </div>
+  <div class="standards-bar fade-up">
+    <div class="standard-item">
+      <div class="standard-icon">📋</div>
+      <div>
+        <h4>SCORM 1.2 / 2004 / xAPI</h4>
+        <p>Published to fit your platform's reporting needs</p>
+      </div>
+    </div>
+    <div class="standard-item">
+      <div class="standard-icon">♿</div>
+      <div>
+        <h4>WCAG Accessibility</h4>
+        <p>Screen-reader compatible, subtitles, keyboard nav</p>
+      </div>
+    </div>
+    <div class="standard-item">
+      <div class="standard-icon">🌍</div>
+      <div>
+        <h4>Localisation</h4>
+        <p>Multi-language built in from day one, not bolted on</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header fade-up">
+    <p class="label">What clients say</p>
+    <h2>Trusted by organisations across three continents.</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">INTEA delivered a programme that genuinely changed how our teams handle client conversations. The quality was exceptional and the instructional approach made real content feel genuinely engaging.</p>
+      <div class="testi-author">Major Nordic Bank — Financial Services</div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The game format was unlike anything we had seen before in public sector learning. Our pupils actually wanted to complete it — and that is the hardest thing to achieve with a teenage audience.</p>
+      <div class="testi-author">National Anti-Corruption Authority — Latvia</div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">INTEA understood our audience and built something that worked in the field, not just in the demo. Taking months of classroom training and making it work on a phone is no small thing.</p>
+      <div class="testi-author">Global Microfinance Learning Organisation</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" id="contact">
+  <div class="fade-up">
+    <p class="label" style="margin-bottom:20px;">Get in touch</p>
+    <h2>Ready to build something that works?</h2>
+    <p>Tell us about your project and we'll get back to you within one business day.</p>
+    <a href="mailto:sales@intea.lv" class="btn btn-orange">Contact us →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzY2IDU0MiI+PGRlZnM+PHN0eWxlPi5ie2ZpbGw6I2VmZTdkNDt9PC9zdHlsZT48L2RlZnM+PHBvbHlnb24gY2xhc3M9ImIiIHBvaW50cz0iNTg2LjYzNyAxMjIuMjU0IDUxNC43MzYgMTIyLjI1NCA1MTQuNzM2IDE5NC4xNTUgNDc5LjIxNyAxOTQuMTU1IDQ3OS4yMTcgMjQ4LjczMSA1MTQuNzM2IDI0OC43MzEgNTE0LjczNiA0NDIuNzggNTg2LjYzNyA0NDIuNzggNTg2LjYzNyAyNDguNzMxIDYyMS4yODggMjQ4LjczMSA2MjEuMjg4IDE5NC4xNTUgNTg2LjYzNyAxOTQuMTU1IDU4Ni42MzcgMTIyLjI1NCIvPjxwYXRoIGNsYXNzPSJiIiBkPSJNNzU1LjQ0MywxOTQuMTU1Yy02OC4zNCwwLTEyMi4wMDYsNTcuODYtMTIyLjAwNiwxMjQuOTQyLDAsNjkuMTc5LDU2LjE4MSwxMjMuMjY0LDEyMy4yNjQsMTIzLjI2NCw0OS4wNTUsMCw5MC4yODctMjYuNDYxLDExMi41MDctNzcuMTkxaC03MS4yNzVjLTExLjMyLDE0LjY3NC0yMi4zNjUsMTguNDkyLTQxLjIzMywxOC40OTItMjguNTEsMC01MC43MzItMTcuNjA3LTU0LjUwNS00NC4wMjJoMTc0LjQxNWMxLjI1OS02LjI5LDEuNjc5LTExLjczOCwxLjY3OS0xOC40NDYsMC03Mi4xMTUtNTMuMjQ4LTEyNy4wMzktMTIyLjg0Ni0xMjcuMDM5Wk03MDMuMDM0LDI5Mi42ODNjNS40NTEtMjQuNzM2LDI3LjI1My0zOS44MzIsNTIuNDA5LTM5LjgzMiwyNi44MzMsMCw0Ny43OTYsMTUuOTM1LDUzLjI0NywzOS44MzJoLTEwNS42NTVaIi8+PHBhdGggY2xhc3M9ImIiIGQ9Ik0xMDkxLjg5NywyMjYuODU3aC0uODM5Yy0xMy40MTctMjEuMzgyLTM5LjgzLTMyLjcwMi02OC4zNC0zMi43MDItNjYuNjYzLDAtMTE2LjU1Niw1NS4zNDItMTE2LjU1NiwxMjQuMTAzLDAsNzAuNDM3LDQ3Ljc5NiwxMjQuNTIxLDExNi41NTYsMTI0LjUyMSwzMC42MDcsMCw1OC4yNzgtMTIuNTc3LDY4LjM0LTMzLjEyaC44Mzl2MzIuNDk3aDY5LjU5OHYtMjQ4LjAwMWgtNjkuNTk4djMyLjcwMlpNMTAzMy42MiwzNzcuNzk0Yy0zMi4yODQsMC01Ny44Ni0yNi40MTItNTcuODYtNTguNjk2LDAtMzMuNTQxLDI1LjE1Ni01OS45NTYsNTcuMDItNTkuOTU2LDMyLjcwMiwwLDU5LjExNywyNi40MTUsNTkuMTE3LDU5LjExNywwLDMzLjU0MS0yNS41NzYsNTkuNTM1LTU4LjI3OCw1OS41MzVaIi8+PHBhdGggY2xhc3M9ImIiIGQ9Ik00MDguNjUzLDIwNS40OTljLTE1LjQwNi04LjEyOC00Mi40MTItMTEuMTYzLTYzLjI1NS0xMS4zMjd2LS4wMTZjLS4yOTYsMC0uNjA4LjAwNy0uOTA3LjAwOC0uMjk5LS4wMDEtLjYxMS0uMDA4LS45MDctLjAwOHYuMDE2Yy0yMC44NDMuMTY1LTQ3Ljg0OSwzLjE5OS02My4yNTYsMTEuMzI3LTE0LjI5MSw3LjU1My0yNS44NTEsMTguODY1LTM0LjM1OCwzMy42MjQtOC40OTIsMTQuNzQ5LTEyLjc5NywzMy4zODgtMTIuNzk3LDU1LjM5OHYxNDguMjU4aDY3LjQ0M3YtMTI3Ljg2MWMwLTEzLjMwMSwxLjc5NS0yNC41ODIsNS4zMzUtMzMuNTI0LDMuNDk0LTguODA0LDguNjMxLTE1LjU2NCwxNS4yNjctMjAuMDkyLDYuNDIyLTQuMzc2LDE0LjI1Ni02LjY0NSwyMy4yNzMtNi43OSw5LjAxOC4xNDUsMTYuODUyLDIuNDE0LDIzLjI3Myw2Ljc5LDYuNjM2LDQuNTI4LDExLjc3MywxMS4yODksMTUuMjY3LDIwLjA5MSwzLjU0LDguOTQ0LDUuMzM1LDIwLjIyNCw1LjMzNSwzMy41MjV2MTI3Ljg2MWg2Ny40NDN2LTE0OC4yNThjMC0yMi4wMS00LjMwNi00MC42NDktMTIuNzk4LTU1LjM5OS04LjUwNi0xNC43NTgtMjAuMDY2LTI2LjA3MS0zNC4zNTgtMzMuNjIzWiIvPjxjaXJjbGUgY2xhc3M9ImIiIGN4PSIxMjI4LjU2NSIgY3k9IjQwMy45NzUiIHI9IjM4LjgwNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ4Ljg0NiAyMDIuMDExKSByb3RhdGUoLTkuMjE3KSIvPjxwYXRoIGNsYXNzPSJiIiBkPSJNMTI3LjUsMTk0LjYwMnYyNDguMTc3aDcxLjkwM3YtMjQ4LjE3OGMtMTAuNCw2LjYzMi0yMi43MywxMC40OTQtMzUuOTUyLDEwLjQ5NHMtMjUuNTUxLTMuODYyLTM1Ljk1MS0xMC40OTNaIi8+PGNpcmNsZSBjbGFzcz0iYiIgY3g9IjE2My40NTEiIGN5PSIxMzguMDI1IiByPSIzOC44MDQiLz48L3N2Zz4=" alt="INTEA" style="height:28px;">
+      <p class="footer-tagline">E-learning that works. Based in the Baltic region, working globally.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Work</h5>
+        <ul>
+          <li><a href="#work">Finance</a></li>
+          <li><a href="#work">Risk Management</a></li>
+          <li><a href="#work">State Projects</a></li>
+          <li><a href="#work">IT & Technology</a></li>
+          <li><a href="#work">Telecoms</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About INTEA</a></li>
+          <li><a href="#midas">How we work</a></li>
+          <li><a href="#tech">Tech stack</a></li>
+          <li><a href="mailto:sales@intea.lv">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 INTEA. All rights reserved.</p>
+    <a href="mailto:sales@intea.lv" class="footer-email">sales@intea.lv</a>
+  </div>
+</footer>
+
+<script>
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('.case-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      // renumber visible rows
+      let count = 1;
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.category === filter) {
+          row.classList.remove('hidden');
+          row.querySelector('.case-num').textContent = String(count).padStart(2,'0');
+          count++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Expand/collapse case rows
+  function toggleRow(row) {
+    const expand = row.querySelector('.case-expand');
+    const isOpen = expand.classList.contains('open');
+    // close all others
+    document.querySelectorAll('.case-row.open').forEach(r => {
+      r.classList.remove('open');
+      r.querySelector('.case-expand').classList.remove('open');
+    });
+    if (!isOpen) {
+      row.classList.add('open');
+      expand.classList.add('open');
+    }
+  }
+
+  // Scroll animations
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => observer.observe(el));
+</script>
+<style>
+  /* EDITOR UI */
+  #edit-bar {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1a0088;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(26,0,136,0.35);
+    transition: all 0.2s;
+    cursor: default;
+    user-select: none;
+  }
+
+  #edit-bar.editing {
+    background: #FF5E32;
+  }
+
+  #edit-bar-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  #edit-bar-btn:hover { background: rgba(255,255,255,0.3); }
+
+  #save-btn {
+    background: white;
+    border: none;
+    color: #FF5E32;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: none;
+  }
+
+  #save-btn:hover { background: #EFE7D4; }
+
+  [data-editable] {
+    position: relative;
+    transition: outline 0.15s;
+  }
+
+  body.edit-mode [data-editable]:hover {
+    outline: 2px dashed rgba(255,94,50,0.5);
+    outline-offset: 4px;
+    border-radius: 4px;
+    cursor: text;
+  }
+
+  body.edit-mode [data-editable]:focus {
+    outline: 2px solid #FF5E32;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  #edit-toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: #1a0088;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 100px;
+    z-index: 10000;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+  }
+
+  #edit-toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+
+<!-- EDITOR BAR -->
+<div id="edit-bar">
+  <span id="edit-bar-label">✏️ Press <kbd style="background:rgba(255,255,255,0.2);padding:2px 7px;border-radius:4px;font-family:monospace;">Ctrl+E</kbd> to edit</span>
+  <button id="edit-bar-btn" onclick="toggleEditMode()">Edit mode</button>
+  <button id="save-btn" onclick="saveFile()">⬇ Download updated file</button>
+</div>
+
+<div id="edit-toast">Changes saved — download complete!</div>
+
+<script>
+  // Mark all editable elements
+  const editableSelectors = [
+    'h1', 'h2', 'h3', 'h4',
+    '.hero p', '.about-text p', '.service-card p', '.service-card h3',
+    '.case-row-title', '.case-client-label', '.case-expand-section p',
+    '.midas-text p', '.midas-pill-text h4', '.midas-pill-text p',
+    '.testi-text', '.testi-author',
+    '.cta-band h2', '.cta-band p',
+    '.footer-tagline', '.stat-label', '.stat-num',
+    '.tech-list li', '.value-card h4', '.value-card p',
+    '.hero-card h4', '.hero-card p',
+    '.standard-item h4', '.standard-item p',
+    '.section-header h2'
+  ];
+
+  editableSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      el.setAttribute('data-editable', 'true');
+      el.setAttribute('data-original', el.innerHTML);
+    });
+  });
+
+  let editMode = false;
+
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+
+    const bar = document.getElementById('edit-bar');
+    const btn = document.getElementById('edit-bar-btn');
+    const saveBtn = document.getElementById('save-btn');
+    const label = document.getElementById('edit-bar-label');
+
+    if (editMode) {
+      bar.classList.add('editing');
+      btn.textContent = 'Exit edit mode';
+      saveBtn.style.display = 'block';
+      label.textContent = '✏️ Click any text to edit';
+
+      document.querySelectorAll('[data-editable]').forEach(el => {
+        el.contentEditable = 'true';
+        el.spellcheck = true;
+      });
+    } else {
+      bar.classList.remove('editing');
+      btn.textContent = 'Edit mode';
+      saveBtn.style.display = 'none';
+      label.innerHTML = '✏️ Press <kbd style="background:rgba(255,255,255,0.2);padding:2px 7px;border-radius:4px;font-family:monospace;">Ctrl+E</kbd> to edit';
+
+      document.querySelectorAll('[data-editable]').forEach(el => {
+        el.contentEditable = 'false';
+      });
+    }
+  }
+
+  // Keyboard shortcut
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+      e.preventDefault();
+      toggleEditMode();
+    }
+  });
+
+  function saveFile() {
+    // Turn off edit mode before saving
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = 'false';
+      el.removeAttribute('data-editable');
+      el.removeAttribute('data-original');
+    });
+    document.body.classList.remove('edit-mode');
+
+    // Remove the editor UI from the saved file
+    const editorBar = document.getElementById('edit-bar');
+    const editorToast = document.getElementById('edit-toast');
+    editorBar.remove();
+    editorToast.remove();
+
+    // Get the full HTML
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // Restore editor for continued use
+    setTimeout(() => {
+      const toast = document.getElementById('edit-toast');
+      // Re-add editor elements after download
+      location.reload();
+    }, 100);
+
+    // Trigger download
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Show toast
+    const toast = document.getElementById('edit-toast');
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  }
+</script>
+</body>
+</html>
